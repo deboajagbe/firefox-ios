@@ -511,7 +511,7 @@ class TabTrayController: UIViewController {
 
         // We're only doing one update here, but using a batch update lets us delay selecting the tab
         // until after its insert animation finishes.
-        self.collectionView.performBatchUpdates({ _ in
+        self.collectionView.performBatchUpdates({
             _ = self.tabManager.addTab(request, isPrivate: self.privateMode)
         }, completion: { finished in
             // The addTab delegate method will pop to the BVC no need to do anything here.
@@ -584,7 +584,7 @@ extension TabTrayController: TabManagerDelegate {
             .map { IndexPath(item: $0, section: 0) }
 
         assertIsMainThread("Changing selected tab is on main thread")
-        collectionView?.performBatchUpdates({ _ in
+        collectionView?.performBatchUpdates({
             self.collectionView.reloadItems(at: updated)
 
             if !updated.isEmpty {
@@ -609,7 +609,7 @@ extension TabTrayController: TabManagerDelegate {
         }
 
         tabDataSource.addTab(tab)
-        self.collectionView?.performBatchUpdates({ _ in
+        self.collectionView?.performBatchUpdates({
             self.collectionView.insertItems(at: [IndexPath(item: index, section: 0)])
         }, completion: { finished in
             if finished {
